@@ -1,0 +1,10 @@
+.main-notFound {
+  min-height: 20svh;
+  margin: 0;
+  padding: 0;
+}
+.not-found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
