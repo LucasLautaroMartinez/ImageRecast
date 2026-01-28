@@ -22,7 +22,6 @@
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 400;
-    /* transition: all 0.2s ease; */
     border-radius: 8px;
     margin-bottom: 0.25rem;
     background-color: transparent;
@@ -31,7 +30,6 @@
   .menu-panel .nav-button:hover {
     background-color: var(--accent-dark-gray);
     color: var(--primary-cream);
-    /* transform: translateX(4px); */
   }
 
   .menu-panel .nav-button:last-child {
@@ -201,7 +199,6 @@
     transform: translateY(0);
   }
 
-  /* Ocultar elementos mobile en desktop */
   .mobile-topbar,
   .mobile-sidebar,
   .mobile-overlay {
@@ -212,7 +209,6 @@
 
 /*===========================================-----↓ MOBILE MENU ↓-----===========================================*/
 @media (max-width: 767.98px) {
-  /* Ocultar elementos desktop en mobile */
   .menu-hover-area,
   .navbar,
   .mega-menu,
@@ -221,7 +217,6 @@
     display: none !important;
   }
 
-  /* Mobile Topbar */
   .mobile-topbar {
     position: fixed;
     top: 10px;
@@ -264,7 +259,6 @@
     width: auto;
   }
 
-  /* Hamburger Button */
   .hamburger {
     background: none;
     border: none;
@@ -302,7 +296,6 @@
     transform: translateY(-7.5px) rotate(-45deg);
   }
 
-  /* Mobile Overlay */
   .mobile-overlay {
     position: fixed;
     top: 0;
@@ -315,7 +308,6 @@
     z-index: 999;
   }
 
-  /* Mobile Sidebar */
   .mobile-sidebar {
     position: fixed;
     top: 0;
@@ -445,7 +437,6 @@
     font-size: 0.9rem;
     font-weight: 400;
     opacity: 0.85;
-    /* transition: opacity 0.2s ease; */
   }
 
   .submenu-inner .nav-button:hover {

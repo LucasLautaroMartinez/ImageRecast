@@ -32,28 +32,10 @@ function Menu() {
     };
   }, [isMobile]);
 
-  // const menuItems = [
-  //   { id: "a", label: "Hosting" },
-  //   { id: "b", label: "Domains" },
-  //   { id: null, label: "Intermedio" },
-  //   { id: "c", label: "Security" }
-  // ];
-
-  // const menuContent = {
-  //   a: (
-  //     <>
-  //       <div>Contenido A</div>
-  //       <div>Contenido Aaaa</div>
-  //       <div>Contenido Abbb</div>
-  //     </>
-  //   ),
-  //   b: <div>Contenido B</div>,
-  //   c: <div>Contenido C</div>
-  // };
   const menuItems = [
     { id: "a", label: "Herramientas" },
     { id: null, label: "Quién soy", link: "/converter" },
-    { id: null, label: "Contactos", link: "/converter" },
+    { id: null, label: "Contactos", link: "#footer" },
     { id: "c", label: "Ayuda" }
   ];
 
@@ -69,9 +51,6 @@ function Menu() {
         <Link id="3" to="#" className="nav-button">
           otro
         </Link>
-        {/* <div>Convertidor de imágenes</div>
-        <div>PickUp Color</div>
-        <div>otro</div> */}
       </>
     ),
     c: (
@@ -82,9 +61,6 @@ function Menu() {
         <Link id="5" to="#" className="nav-button">
           Método de conversión
         </Link>
-
-        {/* <div>Formatos de archivos</div>
-        <div>Método de conversión</div>       */}
       </>
     )
   };
@@ -102,7 +78,21 @@ function Menu() {
             <ul className="nav-items">
               {menuItems.map((item, idx) => (
                 <li key={idx} data-menu={item.id} className={!item.id ? "no-menu" : ""}>
-                  <span className="menu-label">{item.label}</span>
+                  <span 
+                    className="menu-label"
+                    onClick={item.label === "Contactos" ? (e) => {
+                      e.preventDefault();
+                      const el = document.querySelector("#footer");
+                      if (el) {
+                        el.scrollIntoView({ behavior: "smooth" });
+                      } else {
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+                      }
+                    } : undefined}
+                    style={item.label === "Contactos" ? { cursor: 'pointer' } : undefined}
+                  >
+                    {item.label}
+                  </span>
                   {item.id && (
                     <svg
                       className="menu-arrow"
@@ -165,6 +155,21 @@ function Menu() {
                       >
                         <path d="M297.4 470.6C309.9 483.1 330.2 483.1 342.7 470.6L534.7 278.6C547.2 266.1 547.2 245.8 534.7 233.3C522.2 220.8 501.9 220.8 489.4 233.3L320 402.7L150.6 233.4C138.1 220.9 117.8 220.9 105.3 233.4C92.8 245.9 92.8 266.2 105.3 278.7L297.3 470.7z" />
                       </svg>
+                    </div>
+                  ) : item.label === "Contactos" ? (   /* ← CAMBIO */
+                    <div
+                      className="sidebar-item sidebar-item-link"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const el = document.querySelector("#footer");
+                        if (el) {
+                          el.scrollIntoView({ behavior: "smooth" });
+                        } else {
+                          window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+                        }
+                      }}
+                    >
+                      <span>{item.label}</span>
                     </div>
                   ) : (
                     <Link to={item.link || "#"} className="sidebar-item sidebar-item-link">

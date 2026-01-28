@@ -1,31 +1,33 @@
 import { useState, useRef, useEffect } from 'react';
-import '../../styles/formatSelector.css';
+import '../../styles/svgOptionSelector.css';
 
-const FormatSelect = ({ value = 'image/png', onChange }) => {
+const SvgOptionSelector = ({ preset = 'logo-clean', onPresetChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   const options = [
-    { value: 'image/webp', label: 'WEBP' },
-    { value: 'image/jpeg', label: 'JPG' },
-    { value: 'image/png', label: 'PNG' },
-    { value: 'image/svg+xml', label: 'SVG' }
+    { value: 'logo-clean', label: 'Logo' },
+    { value: 'icon-flat', label: 'Icono' },
+    { value: 'illustration', label: 'Ilustración' },
+    { value: 'sketch', label: 'Boceto' },
+    { value: 'high-detail', label: 'Detalle+' },
+    { value: 'black-white', label: 'B/N' },
+    { value: 'pixel-art', label: 'Pixel' }
   ];
 
-  const selectedOption = options.find(opt => opt.value === value) || options[2];
+  const selectedOption = options.find(opt => opt.value === preset) || options[0];
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
 
   const handleSelect = (optionValue) => {
-    if (onChange) {
-      onChange(optionValue);
+    if (onPresetChange) {
+      onPresetChange(optionValue);
     }
     setIsOpen(false);
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -40,27 +42,17 @@ const FormatSelect = ({ value = 'image/png', onChange }) => {
   }, []);
 
   return (
-    <div className="format-select-wrapper" ref={dropdownRef}>
-      <select 
-        className="input-control js-convert-to" 
-        value={value}
-        onChange={(e) => onChange && onChange(e.target.value)}
-        style={{ display: 'none' }}
-      >
-        <option value="image/webp">WEBP</option>
-        <option value="image/jpeg">JPG</option>
-        <option value="image/png">PNG</option>
-        <option value="image/svg+xml">SVG</option>
-      </select>
-
+    <div className="svg-option-select-wrapper" ref={dropdownRef}>
       <button
         type="button"
-        className={`format-select-button ${isOpen ? 'open' : ''}`}
+        className={`svg-option-select-button ${isOpen ? 'open' : ''}`}
         onClick={handleToggle}
       >
-        <span className="format-select-label">{selectedOption.label}</span>
+        <span className="format-select-label">
+          Estilo: {selectedOption.label}
+        </span>
         <svg
-          className="format-select-arrow"
+          className="svg-option-select-arrow"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 640 640"
           aria-hidden="true"
@@ -71,12 +63,12 @@ const FormatSelect = ({ value = 'image/png', onChange }) => {
       </button>
 
       {isOpen && (
-        <div className="format-select-dropdown">
+        <div className="svg-option-select-dropdown">
           {options.map((option) => (
             <div
               key={option.value}
-              data-format={option.label.toLowerCase()}
-              className={`format-select-option ${option.value === value ? 'selected' : ''}`}
+              data-svg-option={option.value}
+              className={`svg-option-select-option ${option.value === preset ? 'selected' : ''}`}
               onClick={() => handleSelect(option.value)}
             >
               {option.label}
@@ -88,4 +80,4 @@ const FormatSelect = ({ value = 'image/png', onChange }) => {
   );
 };
 
-export default FormatSelect;
+export default SvgOptionSelector;

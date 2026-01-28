@@ -6,6 +6,8 @@
   --footer-hover-color: #f21e2c;
   --footer-author-primary: #feedda;
   --footer-author-accent: #fe6434;
+  --footer-tooltip-bg: #333333;
+  --footer-copied-color: #4caf50;
 }
 
 #root {
@@ -114,6 +116,7 @@ footer.footer {
   text-decoration: none;
   font-family: inherit;
   font-size: 1rem;
+  position: relative;
 }
 
 .footer-social-link:hover {
@@ -130,6 +133,7 @@ footer.footer {
   width: 2rem;
   height: 2rem;
   min-width: 2rem;
+  transition: all 0.3s ease;
 }
 
 .footer-social-link i {
@@ -141,6 +145,45 @@ footer.footer {
 .footer-social-text {
   font-weight: 500;
   user-select: none;
+}
+
+.footer-tooltip {
+  position: absolute;
+  left: -120px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--footer-tooltip-bg);
+  color: var(--footer-text-primary);
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.footer-tooltip::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid var(--footer-tooltip-bg);
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+}
+
+.footer-social-link:hover .footer-tooltip {
+  opacity: 1;
+}
+
+.footer-social-link:hover svg {
+  color: var(--footer-accent-color);
 }
 
 @media (max-width: 768px) {
@@ -176,6 +219,24 @@ footer.footer {
 
   .footer-social-link:hover {
     transform: scale(1.05);
+  }
+
+  /* Ajustar posición del tooltip en móvil */
+  .footer-tooltip {
+    left: 50%;
+    top: -45px;
+    transform: translateX(-50%);
+  }
+
+  .footer-tooltip::after {
+    right: auto;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid var(--footer-tooltip-bg);
+    border-bottom: none;
   }
 }
 

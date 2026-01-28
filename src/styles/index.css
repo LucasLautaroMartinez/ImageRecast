@@ -19,6 +19,25 @@
   --secondary-gray: #312f2c;
 }
 
+
+/* para evitar arrastras imágenes */
+img, svg {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none;     /* IE 10 and IE 11 */
+  user-select: none;         /* Standard syntax */
+  /* pointer-events: none; */
+  -webkit-user-drag: none;   /* For older WebKit browsers */
+  user-drag: none;
+}
+
+
+
+
+
+
+
+
+
 html::-webkit-scrollbar {
   width: 12px;
   scrollbar-gutter: stable;

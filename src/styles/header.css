@@ -6,35 +6,6 @@
   --secondary-gray: #312f2c;
 }
 
-/* header h5 {
-  font-family: "Permanent Marker", cursive;
-  font-weight: 400;
-  font-size: clamp(2rem, 5vw, 4rem);
-  font-style: normal;
-  color: var(--primary-turquoise);
-  
-  position: relative;
-  margin-left: clamp(1rem, 5vw, 10rem);
-  margin-right: clamp(1rem, 5vw, 10rem);
-  display: inline-block;
-  width: fit-content;
-} */
-/* header h5 .marker-underline {
-  position: absolute;
-  left: 0;
-  bottom: -3.5rem;
-  width: 100%;
-  height: auto;
-  min-height: 40px;
-  max-height: 100px;
-  object-fit: fill;
-  pointer-events: none;
-} */
-/* header .title {
-  position: absolute;
-} */
-
-
 .menu-separator-header {
   height: 6svh;
   width: 100%;

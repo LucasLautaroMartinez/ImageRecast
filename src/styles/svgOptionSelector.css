@@ -1,0 +1,132 @@
+:root {
+  --select-primary: #4a90e2;
+  --select-primary-hover: #5ba0f2;
+  --select-bg-dropdown: #e8e8e8;
+  --select-option-hover: #d4d4d4;
+  --select-option-selected: #c4c4c4;
+  --select-border: #d0d0d0;
+  --select-text-light: white;
+
+  --select-width: clamp(200px, 25vw, 270px);
+}
+
+.svg-option-select-wrapper {
+  position: relative;
+  width: var(--select-width);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.svg-option-select-button {
+  width: 100%;
+  height: clamp(60px, 10vw, 80px);
+  background-color: var(--select-primary);
+  border: none;
+  border-radius: clamp(8px, 1.5vw, 12px);
+  color: var(--select-text-light);
+  font-size: clamp(16px, 3vw, 22px);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(16px, 3vw, 24px);
+  transition: background-color 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
+}
+
+.svg-option-select-button:hover {
+  background-color: var(--select-primary-hover);
+}
+
+.svg-option-select-button.open {
+  border-radius: clamp(8px, 1.5vw, 12px) clamp(8px, 1.5vw, 12px) 0 0;
+}
+
+.svg-option-select-label {
+  flex: 1;
+  text-align: left;
+  padding-right: clamp(8px, 2vw, 12px);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.svg-option-select-arrow {
+  width: clamp(18px, 3vw, 24px);
+  height: clamp(18px, 3vw, 24px);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+  fill: var(--select-text-light);
+}
+
+.svg-option-select-button.open .svg-option-select-arrow {
+  transform: rotate(180deg);
+}
+
+.svg-option-select-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--select-bg-dropdown);
+  border-radius: 0 0 clamp(8px, 1.5vw, 12px) clamp(8px, 1.5vw, 12px);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.svg-option-select-option {
+  padding: clamp(16px, 3vw, 24px) clamp(16px, 3vw, 24px);
+  color: var(--select-primary);
+  font-size: clamp(14px, 2.5vw, 18px);
+  font-weight: 400;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  text-align: left;
+  position: relative;
+  line-height: 1.3;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.svg-option-select-option:hover {
+  background-color: var(--select-option-hover);
+}
+
+.svg-option-select-option.selected {
+  background-color: var(--select-option-selected);
+}
+
+.svg-option-select-option:not(:last-child) {
+  border-bottom: 1px solid var(--select-border);
+}
+
+
+
+/*==========================================----- MEDIA QUERIES -----==========================================*/
+@media (max-width: 768px) {
+  :root {
+    --select-width: clamp(250px, 55svw, 350px);
+  }
+  
+  .svg-option-select-button {
+    height: clamp(60px, 9vh, 70px);
+    padding: 0 clamp(12px, 4vw, 20px);
+  }
+  
+  .svg-option-select-option {
+    padding: clamp(14px, 4vw, 20px) clamp(12px, 4vw, 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --select-width: min(80svw, 250px);
+  }
+  
+  .svg-option-select-button {
+    height: clamp(55px, 8vh, 65px);
+  }
+}
+/*==========================================---------=======---------==========================================*/

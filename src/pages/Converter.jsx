@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import camara from '../assets/Camara.png'
+import camara from '../assets/Camara.webp'
 import DropBox from '../components/image/DropBox.jsx'
 import FreeSticker from '../assets/free-text.svg'
 import SparklesSticker from '../assets/pop.svg'
@@ -13,6 +13,8 @@ import upload_files from '../services/upload_files.js'
 import { Toaster } from 'anni'
 import { toast } from 'anni'
 import stylesConverter from '../styles/converter.module.css'
+import SvgOptionSelector from '../components/ui/SvgOptionSelector.jsx'
+import ImageViewer from '../components/image/ImageViewer.jsx'
 
 export default function Converter() {
   const [imageFormat, setImageFormat] = useState('image/png');
@@ -21,11 +23,12 @@ export default function Converter() {
   const [originalFiles, setOriginalFiles] = useState([]);
   const [images, setImages] = useState([]);
   const isDeletingRef = useRef(false);
-
+  const [svgPreset, setSvgPreset] = useState('logo-clean');
+  const [viewerOpen, setViewerOpen] = useState(false);
+  const [activeImage, setActiveImage] = useState(null);
 
   useEffect(() => {
     if (isDeletingRef.current) { isDeletingRef.current = false; return; }
-
     if (originalFiles.length === 0) { setImages([]); return; }
 
     let cancelled = false;
@@ -33,9 +36,14 @@ export default function Converter() {
     async function run() {
       const { images, hadError } = await upload_files(originalFiles, {
         format: imageFormat,
+        svgPreset,
         onStart: () => setUploading(true),
         onProgress: setProgress,
         onFinish: () => setUploading(false),
+        onSlow: () => {
+          toast.info('Este proceso puede tardar un poco...');
+        },
+        slowAfter: 2500,
         onError: ({ file }) => {
           toast.error(`Formato no soportado: ${file.name}`);
         }
@@ -46,17 +54,14 @@ export default function Converter() {
       setImages(images);
 
       if (images.length > 0 && !hadError) {
-        const extensionMap = { 'image/jpeg': 'JPG', 'image/png': 'PNG', 'image/webp': 'WEBP' };
+        const extensionMap = { 'image/jpeg': 'JPG', 'image/png': 'PNG', 'image/webp': 'WEBP', 'image/svg+xml': 'SVG' };
         toast.success(`Conversión completa a ${extensionMap[imageFormat]}`);
       }
     }
     run();
     return () => { cancelled = true; };
+  }, [originalFiles, imageFormat, svgPreset]);
 
-  }, [originalFiles, imageFormat]);
-
-
-  
   function handleUpload(files) {
     isDeletingRef.current = false;
     setOriginalFiles(files);
@@ -64,30 +69,43 @@ export default function Converter() {
 
   function handleDownload(img) {
     const url = URL.createObjectURL(img.blob);
-
     const a = document.createElement('a');
     a.href = url;
     a.download = img.name;
     document.body.appendChild(a);
     a.click();
-
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   }
 
   function handleDelete(id) {
     isDeletingRef.current = true;
-
     setImages(prev => prev.filter(i => i.id !== id));
     setOriginalFiles(prev => prev.filter(file => {
       return !images.some(img => img.id === id && img.sourceFile === file);
     }));
   }
 
+  function handleDeleteAll() {
+    isDeletingRef.current = true;
+    setImages([]);
+    setOriginalFiles([]);
+    toast(<div className={stylesConverter['toast-delete-images']}>🗑️&nbsp; Se eliminaron todas las imágenes</div>)
+  }
+
+  function openViewer(img) {
+    setActiveImage(img);
+    setViewerOpen(true);
+  }
+
+  function closeViewer() {
+    setViewerOpen(false);
+    setActiveImage(null);
+  }
 
   return (
     <main className={stylesConverter['main-converter']}>
-      <Toaster 
+      <Toaster
         position='bottom-right'
         defaultTimeDuration={2000}
       />
@@ -97,8 +115,14 @@ export default function Converter() {
         <ProgressBar visible={uploading} progress={progress} />
 
         <div className={stylesConverter['format-select-container']}>
-          <FormatSelect value={imageFormat} onChange={setImageFormat} />
-          <img src={SquigglyArrowSticker} alt="" className={stylesConverter['sticker-arrow']} />
+          <FormatSelect value={imageFormat} onChange={setImageFormat}/>
+          {imageFormat === 'image/svg+xml' && (
+            <SvgOptionSelector
+              preset={svgPreset}
+              onPresetChange={setSvgPreset}
+            />
+          )}
+          <img src={SquigglyArrowSticker} alt="" className={`${stylesConverter['sticker-arrow']} ${imageFormat === 'image/svg+xml' ? stylesConverter['sticker-arrow-svg'] : ''}`} />
         </div>
       </section>
 
@@ -114,7 +138,31 @@ export default function Converter() {
         <div className={stylesConverter['processed-image-container']}>
           {Array.isArray(images) && images.length === 0 && (
             <div className={stylesConverter['empty-state']}>
-              No hay imágenes
+              No hay imágenes cargadas
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={stylesConverter["no-image-icon"]}>
+                <path 
+                  className={stylesConverter["no-image-icon__frame"]} 
+                  d="M21 3H3C1.9 3 1 3.9 1 5v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM5 17l3.5-4.5 2.5 3.01L14.5 11l4.5 6H5z"
+                />
+                <line
+                  className={stylesConverter["no-image-icon__line1"]} 
+                  x1="1" 
+                  y1="1" 
+                  x2="22" 
+                  y2="23" 
+                  strokeWidth="2" 
+                  strokeLinecap="round"
+                />
+                <line 
+                  className={stylesConverter["no-image-icon__line2"]} 
+                  x1="3.78" 
+                  y1="1" 
+                  x2="24.78" 
+                  y2="23" 
+                  strokeWidth="2" 
+                  strokeLinecap="round"
+                />
+              </svg>
             </div>
           )}
 
@@ -126,10 +174,32 @@ export default function Converter() {
               thumbnail={img.previewUrl}
               onDownload={() => handleDownload(img)}
               onDelete={() => handleDelete(img.id)}
+              onPreview={() => openViewer(img)}
             />
           ))}
         </div>
+        <div className={stylesConverter['image-toolbar']}>
+          <button
+            className={stylesConverter['delete-all-btn']}
+            onClick={handleDeleteAll}
+            disabled={images.length === 0}
+          >
+            Eliminar todo
+          </button>
+        </div>
       </section>
+
+      {viewerOpen && activeImage && (
+        <ImageViewer
+          image={activeImage}
+          onClose={closeViewer}
+          onDelete={() => {
+            handleDelete(activeImage.id);
+            closeViewer();
+          }}
+          onDownload={handleDownload}
+        />
+      )}
     </main>
   );
 }

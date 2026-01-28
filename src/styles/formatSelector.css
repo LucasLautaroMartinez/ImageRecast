@@ -68,6 +68,8 @@
   cursor: pointer;
   transition: background-color 0.15s ease;
   text-align: left;
+
+  position: relative;
 }
 
 .format-select-option:hover {
@@ -80,6 +82,24 @@
 
 .format-select-option:not(:last-child) {
   border-bottom: 1px solid #d0d0d0;
+}
+
+
+
+.format-select-option[data-format="svg"]::after {
+  content: 'personalizable';
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+  color: #88acd9;
+  font-size: clamp(12px, 4vw - 1px, 20px);
+  font-weight: lighter;
+  font-style: italic;
+  pointer-events: none;
+}
+.format-select-option.selected[data-format="svg"]::after {
+  content: '';
 }
 
 

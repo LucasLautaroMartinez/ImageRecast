@@ -389,6 +389,7 @@ export function initMobileMenu(root) {
   sidebarLinks.forEach(link => {
     const handler = () => {
       closeAllSubmenus();
+      closeSidebar();
     };
     linkHandlers.push({ link, handler });
     link.addEventListener("click", handler);

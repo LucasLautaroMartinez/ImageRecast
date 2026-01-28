@@ -5,7 +5,7 @@
   border: 1px solid #e4e3e3;
   width: 100%;
   max-width: min(100%, 55rem);
-  min-height: clamp(18rem, 32vh, 25rem);
+  min-height: clamp(20rem, 32svh, 25rem);
   height: fit-content;
   overflow: hidden;
   cursor: pointer;
@@ -22,7 +22,7 @@
   align-items: center;
   justify-content: center;
   gap: clamp(0.75rem, 3.5vw, 2.5rem);
-  min-height: clamp(18rem, 32vh, 25rem);
+  min-height: clamp(20rem, 32svh, 25rem);
 }
 
 .dropzone-header {
@@ -45,10 +45,11 @@
   flex-shrink: 0;
 }
 
-.dropzone-size-limit {
+.dropzone-info-big {
   font-family: Verdana, sans-serif;
   color: #6d6d6d;
-  font-size: clamp(2.25rem, 4vw, 3rem);
+  /* font-size: clamp(2.25rem, 4vw, 3rem); */
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
   font-weight: bold;
   margin: 0 0 0.5rem 0;
   line-height: 1.1;

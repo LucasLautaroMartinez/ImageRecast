@@ -1,9 +1,10 @@
 import '../../styles/imageCard.css';
 
-const ImageCard = ({ fileName, fileSize, thumbnail, onDownload, onDelete }) => {
+const ImageCard = ({ fileName, fileSize, thumbnail, onDownload, onDelete, onPreview }) => {
+
   return (
     <div className="file-item">
-      <div className="file-thumbnail">
+      <div className="file-thumbnail" onClick={onPreview} style={{ cursor: 'pointer' }}>
         <img src={thumbnail} alt={fileName} />
       </div>
       

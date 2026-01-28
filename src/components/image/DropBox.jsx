@@ -56,9 +56,12 @@ const ImageUploadDropzone = ({ onFilesSelected }) => {
         id="file-input-hidden"
         type="file"
         multiple
-        accept="image/jpeg,image/png,image/webp"
+        accept="image/jpeg,image/png,image/webp,image/svg+xml"
         hidden
-        onChange={e => handleFiles(e.target.files)}
+        onChange={e => {
+          handleFiles(e.target.files);
+          e.target.value = null;
+        }}
       />
 
       <div className="dropzone-content">
@@ -72,7 +75,7 @@ const ImageUploadDropzone = ({ onFilesSelected }) => {
           </svg>
 
           <div className="dropzone-size-info">
-            <p className="dropzone-size-limit">WEBP, JPG, PNG</p>
+            <p className="dropzone-info-big">WEBP, JPG, PNG, SVG</p>
             <p className="dropzone-size-description">Formatos de archivo admitidos</p>
           </div>
         </div>
