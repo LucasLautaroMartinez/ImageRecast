@@ -7,41 +7,41 @@
 }
 
 .menu-separator-header {
-  height: 3rem;
+  height: 6svh;
   width: 100%;
 }
 
 header {
   position: relative;
-  min-height: 240px;
+  /* height: clamp(200px, 16rem, 270px); */
+  height: clamp(200px, 17rem, 300px);
   width: 100%;
   background-color: var(--secondary-yellow);
   display: flex;
   flex-direction: column;
+  padding-bottom: 2rem;
+
   padding-top: 1rem;
-  box-sizing: border-box;
 }
+
+
 
 header .title-container {
   width: 100%;
   display: flex;
   justify-content: flex-start;
   padding-left: clamp(0svw, 10svw, 15svw);
-  /* padding-left: clamp(1rem, 5vw, 6rem); */
-  box-sizing: border-box;
 }
-
 header .title {
   position: relative;
   font-family: "Permanent Marker", cursive;
   font-weight: 400;
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: clamp(2rem, 5svw, 4rem);
   font-style: normal;
   color: var(--primary-turquoise);
   display: inline-block;
   width: fit-content;
 }
-
 header .marker-underline {
   position: absolute;
   left: 0;
@@ -50,6 +50,8 @@ header .marker-underline {
   height: auto;
   pointer-events: none;
 }
+
+
 
 .header-separator {
   position: absolute;
@@ -62,37 +64,26 @@ header .marker-underline {
 }
 
 .header-separator svg {
+  position: relative;
   display: block;
   width: 100%;
-  height: 160px;
+  height: 200px;
   fill: var(--secondary-yellow);
 }
 
 @media (max-width: 768px) {
   .header-separator svg {
-    height: 130px;
+    height: 150px;
   }
-
   header .title-container {
     padding-left: 0;
     justify-content: center;
-  }
-
-  header .title {
-    font-size: 2.4rem;
-  }
-
-  header {
-    padding-bottom: 2rem;
   }
 }
 
 @media (max-width: 480px) {
   .header-separator svg {
-    height: 120px;
-  }
-
-  header .title {
-    font-size: 2rem;
+    /* height: 120px; */
+    height: 180px;
   }
 }

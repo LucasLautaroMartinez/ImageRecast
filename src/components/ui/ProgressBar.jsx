@@ -1,14 +1,14 @@
 import '../../styles/progressBar.css';
 
-const ProgressBar = ({visible, progress}) => {
-
+export default function ProgressBar({visible, progress}) {
   return (
     <div className="progress">
-      <div className="progress-bar" style={{ width: `${progress}%`, display: `${visible ? 'block' : 'none'}` }}>
+      <div
+        className={`progress-bar ${visible ? '' : 'hidden'}`}
+        style={{ width: `${progress}%` }}
+      >
         {progress}%
       </div>
     </div>
   );
 }
-
-export default ProgressBar

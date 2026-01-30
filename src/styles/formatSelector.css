@@ -6,19 +6,19 @@
 
 .format-select-button {
   width: 100%;
-  height: clamp(70px, 15vw, 100px);
+  height: 88px;
   background-color: #c93955;
   border: none;
-  border-radius: clamp(8px, 1.5vw, 12px);
+  border-radius: 10px;
   color: white;
-  font-size: clamp(24px, 5vw, 36px);
+  font-size: clamp(22px, 2.5vw, 32px);
   font-weight: 700;
   letter-spacing: 0.5px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 clamp(20px, 4vw, 32px);
+  padding: 0 24px;
   transition: background-color 0.2s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
@@ -28,7 +28,7 @@
 }
 
 .format-select-button.open {
-  border-radius: clamp(8px, 1.5vw, 12px) clamp(8px, 1.5vw, 12px) 0 0;
+  border-radius: 10px 10px 0 0;
 }
 
 .format-select-label {
@@ -37,8 +37,8 @@
 }
 
 .format-select-arrow {
-  width: clamp(18px, 3vw, 24px);
-  height: clamp(18px, 3vw, 24px);
+  width: 22px;
+  height: 22px;
   flex-shrink: 0;
   transition: transform 0.2s ease;
   fill: white;
@@ -54,21 +54,20 @@
   left: 0;
   right: 0;
   background-color: #e8e8e8;
-  border-radius: 0 0 clamp(8px, 1.5vw, 12px) clamp(8px, 1.5vw, 12px);
+  border-radius: 0 0 10px 10px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   z-index: 1000;
 }
 
 .format-select-option {
-  padding: clamp(16px, 3vw, 24px) clamp(20px, 4vw, 32px);
+  padding: 18px 24px;
   color: #c93955;
-  font-size: clamp(20px, 4vw, 28px);
+  font-size: clamp(18px, 2.2vw, 26px);
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.15s ease;
   text-align: left;
-
   position: relative;
 }
 
@@ -84,8 +83,6 @@
   border-bottom: 1px solid #d0d0d0;
 }
 
-
-
 .format-select-option[data-format="svg"]::after {
   content: 'personalizable';
   position: absolute;
@@ -93,39 +90,39 @@
   right: 10%;
   transform: translateY(-50%);
   color: #88acd9;
-  font-size: clamp(12px, 4vw - 1px, 20px);
-  font-weight: lighter;
+  font-size: 14px;
+  font-weight: 400;
   font-style: italic;
   pointer-events: none;
 }
+
 .format-select-option.selected[data-format="svg"]::after {
   content: '';
 }
 
-
 /*==========================================----- MEDIA QUERIES -----==========================================*/
 @media (max-width: 768px) {
   .format-select-wrapper {
-    width: clamp(180px, 50vw, 220px);
+    width: clamp(180px, 60vw, 220px);
   }
-  
+
   .format-select-button {
-    height: clamp(60px, 12vh, 80px);
-    padding: 0 clamp(16px, 5vw, 24px);
+    height: 76px;
+    padding: 0 20px;
   }
-  
+
   .format-select-option {
-    padding: clamp(14px, 4vw, 20px) clamp(16px, 5vw, 24px);
+    padding: 16px 20px;
   }
 }
 
 @media (max-width: 480px) {
   .format-select-wrapper {
-    width: min(90vw, 200px);
+    width: min(90%, 200px);
   }
-  
+
   .format-select-button {
-    height: clamp(55px, 10vh, 70px);
+    height: 68px;
   }
 }
 /*==========================================---------=======---------==========================================*/

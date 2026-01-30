@@ -3,16 +3,26 @@
   height: clamp(10px, 20px, 5svh);
   display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   margin: 4svh 0;
 }
+
 .progress-bar {
   background-color: rgb(14, 199, 14);
-  height: inherit;
+  height: 100%;
   border-radius: 8px;
   display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   text-align: center;
   font-weight: bold;
+
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s ease;
+}
+
+.progress-bar.hidden {
+  opacity: 0;
+  visibility: hidden;
 }

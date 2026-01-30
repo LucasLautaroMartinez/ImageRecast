@@ -33,6 +33,13 @@ img, svg {
 
 
 
+::selection {
+  background: hsl(from var(--accent-reddish-orange) h s l / 0.6);
+}
+
+::-moz-selection {
+    background: hsl(from var(--accent-reddish-orange) h s l / 0.6);
+}
 
 
 

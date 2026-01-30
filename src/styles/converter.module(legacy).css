@@ -1,13 +1,13 @@
 .main-converter {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: minmax(600px, auto) auto;
+  min-height: 800px;
   grid-template-areas:
     "dropbox  camera"
     "bottom   bottom";
-  gap: 0;
+  gap: 0svw;
   z-index: 999;
-  margin-top: 4rem;
 }
 
 .dropbox {
@@ -16,22 +16,25 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  /* padding: clamp(2rem, 3vw, 3rem); */
   padding: 0 clamp(1rem, 2vw, 2rem);
+  margin-top: auto;
 }
 
+
 .format-select-container {
+  height: 20%;
   width: 100%;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   padding: 0;
-  min-height: 4.5rem;
-  box-sizing: border-box;
 }
 
 .format-select-container > *:first-child {
   margin-right: clamp(10px, 2vw, 40px);
 }
+
 
 section.dropbox
 div.format-select-container
@@ -43,19 +46,17 @@ div.format-select-container
   height: 100px;
 }
 
+
 /*========================================----- CAMARA FOTOGRAFICA -----=======================================*/
 .floating-camera {
   grid-area: camera;
-  transform: translateY(-7rem);
 }
-
 div.floating-camera {
   position: relative;
-  width: clamp(18rem, 22vw, 30rem);
+  width: clamp(20rem, 1rem + 20vw, 31.25rem);
   aspect-ratio: 1 / 1;
   pointer-events: none;
 }
-
 div.floating-camera .camera-photo {
   position: absolute;
   width: 100%;
@@ -67,54 +68,53 @@ div.floating-camera .camera-photo {
   animation: floatY 6s ease-in-out infinite;
   will-change: transform;
 }
-
 .sticker-1 {
   position: absolute;
-  top: -3rem;
+  top: -30%;
   left: 50%;
 }
-
 .sticker-2 {
   position: absolute;
-  top: calc(100% - 1rem);
+  top: 85%;
   left: 72%;
   transform: rotate(-20deg);
 }
-
 .sticker-3 {
   position: absolute;
-  top: -1rem;
-  left: 1rem;
+  top: -10%;
+  left: 5%;
 }
-
 .sticker-4 {
   position: absolute;
-  top: 1rem;
-  left: calc(100% + 0.5rem);
+  top: -10%;
+  left: 100%;
 }
 
+
 /*==========================================---------=======---------==========================================*/
+
 
 .main-bottom {
   grid-area: bottom;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  min-height: 400px;
-  padding: 2rem 1rem 4rem;
+  height: auto;
+  min-height: 600px;
+  padding: 2rem 1rem 4rem 1rem;
   box-sizing: border-box;
 }
 
 .processed-image-container {
-  border: var(--secondary-yellow) dashed 3px;
+  border: var(--secondary-yellow) solid 3px;
   border-radius: 8px;
+  border-style: dashed;
   background-color: var(--secondary-gray);
-
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-  min-height: 350px;
-  max-height: 650px;
-
+  
+  margin: 0 0 2svh 0;
+  min-height: 500px;
+  /* max-height: 800px; */
   width: 55%;
   display: flex;
   flex-direction: column;
@@ -125,14 +125,13 @@ div.floating-camera .camera-photo {
   overflow-x: hidden;
   box-sizing: border-box;
 }
+  .processed-image-container > .file-item:first-child {
+    margin-top: 0;
+  }
+  .processed-image-container > .file-item:last-child {
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  }
 
-.processed-image-container > .file-item:first-child {
-  margin-top: 0;
-}
-
-.processed-image-container > .file-item:last-child {
-  margin-bottom: clamp(1rem, 2vw, 1.5rem);
-}
 
 .empty-state {
   display: flex;
@@ -148,28 +147,25 @@ div.floating-camera .camera-photo {
   padding: 2rem;
   user-select: none;
 }
-
 .processed-image-container:has(.empty-state) {
   overflow: hidden;
 }
 
-.empty-state .no-image-icon {
-  height: 90%;
-  width: 90%;
-  opacity: 0.6;
-}
+  .empty-state .no-image-icon {
+    height: 90%;
+    width: 90%;
+    opacity: 0.6;
+  }
+  .empty-state .no-image-icon__frame {
+    fill: #c0392b;
+  }
+  .empty-state svg .no-image-icon__line1 {
+    stroke: #c0392b;
+  }
+  .empty-state svg .no-image-icon__line2 {
+    stroke: #312f2c;
+  }
 
-.empty-state .no-image-icon__frame {
-  fill: #c0392b;
-}
-
-.empty-state svg .no-image-icon__line1 {
-  stroke: #c0392b;
-}
-
-.empty-state svg .no-image-icon__line2 {
-  stroke: #312f2c;
-}
 
 .image-toolbar {
   display: flex;
@@ -200,38 +196,117 @@ div.floating-camera .camera-photo {
   color: #fbccc6;
 }
 
+
 /*==========================================----- MEDIA QUERIES -----==========================================*/
 
-@media (max-width: 1023px) {
+@media (min-width: 1920px) {
+
+}
+
+@media (min-width: 1440px) and (max-width: 1919px) {
+
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
   .floating-camera {
     display: none;
   }
-
   .main-converter {
+    display: grid;
     grid-template-columns: 1fr;
+    /* grid-template-rows: minmax(500px, auto) auto; */
+    grid-template-rows: auto;
+    min-height: 700px;
+    /* height: 100svh; */
+    height: auto;
     grid-template-areas:
-      "dropbox dropbox"
-      "bottom  bottom";
-    margin-top: 0;
+      "dropbox  dropbox"
+      "bottom   bottom";
   }
-
   .processed-image-container {
-    width: 90%;
-    max-height: 500px;
+    width: 80%;
+    /* margin: 5svh 0; */
   }
 }
 
 @media (max-width: 768px) {
+  .floating-camera {
+    display: none;
+  }
+  .main-converter {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* grid-template-rows: minmax(400px, auto) auto; */
+    grid-template-rows: auto;
+    min-height: 600px;
+    /* height: 100svh; */
+    height: auto;
+    grid-template-areas:
+      "dropbox dropbox"
+      "bottom bottom";
+  }
+  .processed-image-container {
+    width: 90%;
+    max-height: 600px;
+  }
+
   .sticker-arrow-svg {
     display: none;
   }
 
+  .empty-state .no-image-icon {
+    height: 90%;
+    width: 70%;
+  }
+
 }
+
+
+@media (min-resolution: 120dpi) and (max-resolution: 143dpi) {
+
+}
+
+@media (min-resolution: 144dpi) {
+
+}
+
+
 
 /*==========================================---------=======---------==========================================*/
 
+
+
+
+
+
+
 @keyframes floatY {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-1rem); }
-  100% { transform: translateY(0); }
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(calc(-1rem - 1vh));
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
+
+
+
+/* @media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+} */

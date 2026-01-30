@@ -19,4 +19,8 @@ export default defineConfig({
 
   base: '/ImageRecast/',
 
+  build: {
+    outDir: 'docs', // En lugar de crear una carpeta "dist" crea una "docs", para utilizar en GitHub Pages
+    emptyOutDir: true // Elimina la carpeta docs antes de buildear
+  }
 });
