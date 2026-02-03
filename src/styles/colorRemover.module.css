@@ -1,0 +1,49 @@
+.main-colorRemover {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "input-area  output-area"
+    "tools-area  tools-area";
+  gap: 0;
+  z-index: 999;
+  margin-top: 4rem;
+}
+
+
+section .input-area {
+  grid-area: input-area;
+}
+
+section .output-area {
+  grid-area: output-area;
+}
+
+section .tools-area {
+  grid-area: tools-area;
+}
+
+
+/*==========================================----- MEDIA QUERIES -----==========================================*/
+
+@media (max-width: 1023px) {
+
+
+  .main-colorRemover {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "input-area  input-area"
+      "output-area output-area"
+      "tools-area  tools-area";
+    margin-top: 0;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  
+}
+
+/*==========================================---------=======---------==========================================*/
+

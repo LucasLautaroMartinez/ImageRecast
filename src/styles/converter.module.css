@@ -3,7 +3,7 @@
   grid-template-columns: 2fr 1fr;
   grid-template-rows: auto 1fr;
   grid-template-areas:
-    "dropbox  camera"
+    "dropbox  format"
     "bottom   bottom";
   gap: 0;
   z-index: 999;
@@ -16,15 +16,15 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 0 clamp(1rem, 2vw, 2rem);
 }
 
 .format-select-container {
+  grid-area: format;
   width: 100%;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 0;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 min(5%);
   min-height: 4.5rem;
   box-sizing: border-box;
 }
@@ -33,8 +33,7 @@
   margin-right: clamp(10px, 2vw, 40px);
 }
 
-section.dropbox
-div.format-select-container
+section.format-select-container
 .sticker-arrow {
   pointer-events: none;
   position: relative;
@@ -42,58 +41,6 @@ div.format-select-container
   left: 5%;
   height: 100px;
 }
-
-/*========================================----- CAMARA FOTOGRAFICA -----=======================================*/
-.floating-camera {
-  grid-area: camera;
-  transform: translateY(-7rem);
-}
-
-div.floating-camera {
-  position: relative;
-  width: clamp(18rem, 22vw, 30rem);
-  aspect-ratio: 1 / 1;
-  pointer-events: none;
-}
-
-div.floating-camera .camera-photo {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-  -webkit-filter: drop-shadow(5px 5px 5px #222);
-  filter: drop-shadow(5px 5px 5px #222);
-  animation: floatY 6s ease-in-out infinite;
-  will-change: transform;
-}
-
-.sticker-1 {
-  position: absolute;
-  top: -3rem;
-  left: 50%;
-}
-
-.sticker-2 {
-  position: absolute;
-  top: calc(100% - 1rem);
-  left: 72%;
-  transform: rotate(-20deg);
-}
-
-.sticker-3 {
-  position: absolute;
-  top: -1rem;
-  left: 1rem;
-}
-
-.sticker-4 {
-  position: absolute;
-  top: 1rem;
-  left: calc(100% + 0.5rem);
-}
-
-/*==========================================---------=======---------==========================================*/
 
 .main-bottom {
   grid-area: bottom;
@@ -203,14 +150,12 @@ div.floating-camera .camera-photo {
 /*==========================================----- MEDIA QUERIES -----==========================================*/
 
 @media (max-width: 1023px) {
-  .floating-camera {
-    display: none;
-  }
 
   .main-converter {
     grid-template-columns: 1fr;
     grid-template-areas:
       "dropbox dropbox"
+      "format  format"
       "bottom  bottom";
     margin-top: 0;
   }
@@ -219,13 +164,12 @@ div.floating-camera .camera-photo {
     width: 90%;
     max-height: 500px;
   }
-}
 
-@media (max-width: 768px) {
-  .sticker-arrow-svg {
-    display: none;
+  .format-select-container {
+    justify-content: center;
+    align-items: center;
+    padding: 0 min(10%) min(10%) 0;
   }
-
 }
 
 /*==========================================---------=======---------==========================================*/

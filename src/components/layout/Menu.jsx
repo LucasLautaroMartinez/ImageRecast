@@ -48,8 +48,8 @@ function Menu() {
         <Link id="2" to="#" className="nav-button">
           PickUp Color
         </Link>
-        <Link id="3" to="#" className="nav-button">
-          otro
+        <Link id="3" to="/color-remover" className="nav-button">
+          ColorRemover
         </Link>
       </>
     ),

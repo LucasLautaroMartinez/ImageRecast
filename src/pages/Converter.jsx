@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
-import camara from '../assets/Camara.webp'
+// import camara from '../assets/Camara.webp'
 import DropBox from '../components/image/DropBox.jsx'
-import FreeSticker from '../assets/free-text.svg'
-import SparklesSticker from '../assets/pop.svg'
-import Sparkles2Sticker from '../assets/pop2.svg'
-import StarSticker from '../assets/tiny-star.svg'
+// import FreeSticker from '../assets/free-text.svg'
+// import SparklesSticker from '../assets/pop.svg'
+// import Sparkles2Sticker from '../assets/pop2.svg'
+// import StarSticker from '../assets/tiny-star.svg'
 import SquigglyArrowSticker from '../assets/squiggly-arrow.svg'
 import FormatSelect from '../components/ui/FormatSelector.jsx'
 import ProgressBar from '../components/ui/ProgressBar.jsx'
@@ -13,7 +13,6 @@ import upload_files from '../services/upload_files.js'
 import { Toaster } from 'anni'
 import { toast } from 'anni'
 import stylesConverter from '../styles/converter.module.css'
-import SvgOptionSelector from '../components/ui/SvgOptionSelector.jsx'
 import ImageViewer from '../components/image/ImageViewer.jsx'
 
 export default function Converter() {
@@ -113,26 +112,28 @@ export default function Converter() {
       <section className={stylesConverter['dropbox']}>
         <DropBox onFilesSelected={handleUpload} />
         <ProgressBar visible={uploading} progress={progress} />
-
-        <div className={stylesConverter['format-select-container']}>
-          <FormatSelect value={imageFormat} onChange={setImageFormat}/>
-          {imageFormat === 'image/svg+xml' && (
-            <SvgOptionSelector
-              preset={svgPreset}
-              onPresetChange={setSvgPreset}
-            />
-          )}
-          <img src={SquigglyArrowSticker} alt="" className={`${stylesConverter['sticker-arrow']} ${imageFormat === 'image/svg+xml' ? stylesConverter['sticker-arrow-svg'] : ''}`} />
-        </div>
       </section>
 
-      <div className={stylesConverter['floating-camera']}>
+
+        <section className={stylesConverter['format-select-container']}>
+          <FormatSelect
+            value={imageFormat}
+            onChange={setImageFormat}
+            svgPreset={svgPreset}
+            onSvgPresetChange={setSvgPreset}
+          />
+          <img src={SquigglyArrowSticker} alt="" className={`${stylesConverter['sticker-arrow']} ${imageFormat === 'image/svg+xml' ? stylesConverter['sticker-arrow-svg'] : ''}`} />
+        </section>
+
+
+
+      {/* <div className={stylesConverter['floating-camera']}>
         <img src={camara} alt="Camara fotografica ilustrativa" className={stylesConverter['camera-photo']} />
         <img src={FreeSticker} alt="" className={stylesConverter['sticker-1']} />
         <img src={Sparkles2Sticker} alt="" className={stylesConverter['sticker-2']} />
         <img src={SparklesSticker} alt="" className={stylesConverter['sticker-3']} />
         <img src={StarSticker} alt="" className={stylesConverter['sticker-4']} />
-      </div>
+      </div> */}
 
       <section className={stylesConverter['main-bottom']}>
         <div className={stylesConverter['processed-image-container']}>

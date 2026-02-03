@@ -1,0 +1,71 @@
+.base-button {
+  color-scheme: light;
+  --color-bg: #f7f7fb;
+  --color-surface: #ffffff;
+  --color-text: #1a1a1a;
+  --color-muted: #667085;
+  --color-primary: #3b82f6;
+  --color-primary-dark: #2563eb;
+  --color-success: #16a34a;
+  --color-danger: #dc2626;
+  --color-border: #e2e8f0;
+  --shadow-sm: 0 4px 16px rgba(15, 23, 42, 0.08);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --font-sm: 0.875rem;
+  --font-md: 1rem;
+  --font-lg: 1.125rem;
+  --font-xl: 1.5rem;
+}
+
+.base-button {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.2s ease;
+
+  margin-top: 10rem;
+  max-width: 10rem;
+  z-index: 1000;
+}
+
+.base-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.base-button:active {
+  transform: scale(0.98);
+}
+
+.base-button--primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.base-button--primary:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+.base-button--secondary {
+  background: #eef2ff;
+  color: var(--color-primary-dark);
+}
+
+.base-button--danger {
+  background: #fee2e2;
+  color: var(--color-danger);
+}
+
+.base-button--ghost {
+  background: transparent;
+  color: var(--color-muted);
+}
