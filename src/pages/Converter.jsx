@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 import DropBox from '../components/image/DropBox.jsx'
-// import SquigglyArrowSticker from '../assets/squiggly-arrow.svg'
 import FormatSelect from '../components/ui/FormatSelector.jsx'
 import ProgressBar from '../components/ui/ProgressBar.jsx'
 import ImageCard from '../components/image/ImageCard.jsx'
@@ -20,45 +19,79 @@ export default function Converter() {
   const [svgPreset, setSvgPreset] = useState('logo-clean');
   const [viewerOpen, setViewerOpen] = useState(false);
   const [activeImage, setActiveImage] = useState(null);
+  const [pendingFiles, setPendingFiles] = useState([]);
+  const [reprocessAll, setReprocessAll] = useState(false);
 
   useEffect(() => {
-    if (isDeletingRef.current) { isDeletingRef.current = false; return; }
-    if (originalFiles.length === 0) { setImages([]); return; }
+    if (isDeletingRef.current) { 
+      isDeletingRef.current = false; 
+      return; 
+    }
+
+    const filesToProcess = reprocessAll ? originalFiles : pendingFiles;
+    if (filesToProcess.length === 0) return;
 
     let cancelled = false;
 
     async function run() {
-      const { images, hadError } = await upload_files(originalFiles, {
+      const { images: newImages, hadError } = await upload_files(filesToProcess, {
         format: imageFormat,
         svgPreset,
         onStart: () => setUploading(true),
         onProgress: setProgress,
         onFinish: () => setUploading(false),
-        onSlow: () => {
-          toast.info('Este proceso puede tardar un poco...');
-        },
+        onSlow: () => toast.info('Este proceso puede tardar un poco...'),
         slowAfter: 2500,
-        onError: ({ file }) => {
-          toast.error(`Formato no soportado: ${file.name}`);
-        }
+        onError: ({ file }) => toast.error(`Formato no soportado: ${file.name}`)
       });
 
       if (cancelled) return;
 
-      setImages(images);
+      if (reprocessAll) {
+        setImages(newImages);
+      } else {
+        setImages(prev => [...newImages, ...prev]);
+      }
 
-      if (images.length > 0 && !hadError) {
-        const extensionMap = { 'image/jpeg': 'JPG', 'image/png': 'PNG', 'image/webp': 'WEBP', 'image/svg+xml': 'SVG' };
+      setPendingFiles([]);
+      setReprocessAll(false);
+
+      if (newImages.length > 0 && !hadError) {
+        const extensionMap = {
+          'image/jpeg': 'JPG',
+          'image/png': 'PNG',
+          'image/webp': 'WEBP',
+          'image/svg+xml': 'SVG'
+        };
         toast.success(`Conversión completa a ${extensionMap[imageFormat]}`);
       }
     }
+
     run();
     return () => { cancelled = true; };
-  }, [originalFiles, imageFormat, svgPreset]);
+  }, [pendingFiles, imageFormat, svgPreset, reprocessAll]);
+
 
   function handleUpload(files) {
     isDeletingRef.current = false;
-    setOriginalFiles(files);
+
+    setOriginalFiles(prev => {
+      const existingKeys = new Set(
+        prev.map(f => `${f.name}-${f.size}-${f.lastModified}`)
+      );
+
+      const newUniqueFiles = Array.from(files).filter(f => {
+        const key = `${f.name}-${f.size}-${f.lastModified}`;
+        return !existingKeys.has(key);
+      });
+
+      if (newUniqueFiles.length < files.length) {
+        toast.info('Algunas imágenes ya estaban cargadas y se omitieron');
+      }
+
+      setPendingFiles(newUniqueFiles);
+      return [...prev, ...newUniqueFiles];
+    });
   }
 
   function handleDownload(img) {
@@ -107,24 +140,27 @@ export default function Converter() {
       <section className={stylesConverter['dropbox']}>
         <DropBox onFilesSelected={handleUpload} />
         <ProgressBar visible={uploading} progress={progress} />
-
-
       </section>
+
+
       <section className={stylesConverter['format-select-container']}>
+        <p>Convertir imágenes a...</p>
         <FormatSelect
           value={imageFormat}
-          onChange={setImageFormat}
+          onChange={(v) => {
+            setImageFormat(v);
+            setReprocessAll(true);
+          }}
           svgPreset={svgPreset}
-          onSvgPresetChange={setSvgPreset}
+          onSvgPresetChange={(v) => {
+            setSvgPreset(v);
+            setReprocessAll(true);
+          }}
           className='format-select-button'
         />
-        {/* <img src={SquigglyArrowSticker} alt="" className={`${stylesConverter['sticker-arrow']} ${imageFormat === 'image/svg+xml' ? stylesConverter['sticker-arrow-svg'] : ''}`} /> */}
       </section>
 
 
-
-
-      {/* <section className={stylesConverter['main-bottom']}> */}
       <section className={stylesConverter['processed-image-container']}>
         <div className={stylesConverter['processed-image-inner-container-blank-border']}>
           <div className={stylesConverter['processed-image-inner-container']}>

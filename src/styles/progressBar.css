@@ -1,10 +1,10 @@
 .progress {
   width: 60%;
-  height: clamp(10px, 20px, 5svh);
+  height: clamp(10px, 20px, 1.5rem);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 4svh 0;
+  margin: 1.5rem 0 0 0;
 }
 
 .progress-bar {

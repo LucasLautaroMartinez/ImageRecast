@@ -3,7 +3,6 @@ import { Toaster } from 'anni'
 import { toast } from 'anni'
 import stylesColorRemover from '../styles/colorRemover.module.css'
 
-import BaseButton from '../components/ui/BaseButton.jsx'
 
 export default function Converter() {
 
@@ -16,7 +15,6 @@ export default function Converter() {
         defaultTimeDuration={2000}
       />
 
-      <BaseButton>asd</BaseButton>
 
 
     </main>

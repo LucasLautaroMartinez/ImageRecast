@@ -225,6 +225,7 @@ body {
   display: flex;
   flex-direction: column;
   background-color: var(--primary-turquoise);
+  font-family: var(--font-rubik);
 }
 
 h1 {

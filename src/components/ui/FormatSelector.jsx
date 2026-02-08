@@ -28,17 +28,25 @@ export default function FormatSelector ({value = 'image/png', onChange, svgPrese
   const selectedFormat =
     formatOptions.find(opt => opt.value === value) || formatOptions[2];
 
-  const handleToggle = () => setIsOpen(prev => !prev);
+  const handleToggle = () => {
+    setIsOpen(prev => {
+      const next = !prev;
+      if (!next) setIsSvgOpen(false);
+      return next;
+    });
+  };
 
   const handleFormatSelect = (optionValue) => {
-    onChange?.(optionValue);
-    if (optionValue !== 'image/svg+xml') {
-      setIsOpen(false);
-      setIsSvgOpen(false);
-    } else {
+    if (optionValue === 'image/svg+xml') {
       setIsSvgOpen(true);
+      return;
     }
+
+    onChange?.(optionValue);
+    setIsOpen(false);
+    setIsSvgOpen(false);
   };
+
 
   const handleSvgSelect = (optionValue) => {
     onSvgPresetChange?.(optionValue);
@@ -115,7 +123,10 @@ export default function FormatSelector ({value = 'image/png', onChange, svgPrese
                   ${isSvg ? 'has-submenu' : ''} 
                   ${isSvg && isSvgOpen ? 'open' : ''}`}
                 onMouseEnter={() => isSvg && setIsSvgOpen(true)}
-                onClick={() => handleFormatSelect(option.value)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleFormatSelect(option.value);
+                }}
               >
                 <span>{option.label}</span>
 
