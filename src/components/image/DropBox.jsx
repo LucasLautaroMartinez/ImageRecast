@@ -1,7 +1,9 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import '../../styles/dropbox.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faImages } from '@fortawesome/free-solid-svg-icons'
 
-const ImageUploadDropzone = ({ onFilesSelected }) => {
+export default function ImageUploadDropzone({ onFilesSelected }) {
   const [isDragging, setIsDragging] = useState(false);
   const dragCounter = useRef(0);
 
@@ -13,6 +15,29 @@ const ImageUploadDropzone = ({ onFilesSelected }) => {
       onFilesSelected?.(images);
     }
   }
+
+  useEffect(() => {
+    function handlePaste(e) {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+
+      const files = [];
+
+      for (const item of items) {
+        if (item.type.startsWith('image/')) {
+          const file = item.getAsFile();
+          if (file) files.push(file);
+        }
+      }
+
+      if (files.length) {
+        handleFiles(files);
+      }
+    }
+
+    window.addEventListener('paste', handlePaste);
+    return () => window.removeEventListener('paste', handlePaste);
+  }, []);
 
   function handleDragEnter(e) {
     e.preventDefault();
@@ -63,27 +88,27 @@ const ImageUploadDropzone = ({ onFilesSelected }) => {
           e.target.value = null;
         }}
       />
-
-      <div className="dropzone-content">
-        <div className="dropzone-header">
-          <svg 
-            className="dropzone-icon"
-            xmlns="http://www.w3.org/2000/svg" 
-            viewBox="0 0 640 640"
-          >
-            <path d="M192 64C156.7 64 128 92.7 128 128L128 368L310.1 368L279.1 337C269.7 327.6 269.7 312.4 279.1 303.1C288.5 293.8 303.7 293.7 313 303.1L385 375.1C394.4 384.5 394.4 399.7 385 409L313 481C303.6 490.4 288.4 490.4 279.1 481C269.8 471.6 269.7 456.4 279.1 447.1L310.1 416.1L128 416.1L128 512.1C128 547.4 156.7 576.1 192 576.1L448 576.1C483.3 576.1 512 547.4 512 512.1L512 234.6C512 217.6 505.3 201.3 493.3 189.3L386.7 82.7C374.7 70.7 358.5 64 341.5 64L192 64zM453.5 240L360 240C346.7 240 336 229.3 336 216L336 122.5L453.5 240z"/>
-          </svg>
-
-          <div className="dropzone-size-info">
-            <p className="dropzone-info-big">WEBP, JPG, PNG, SVG</p>
-            <p className="dropzone-size-description">Formatos de archivo admitidos</p>
+      <div className='dropzone-blank-border'>
+        <div className="dropzone-content">
+          <FontAwesomeIcon icon={faImages} className="dropzone-icon" />
+          <h1 className='dropbox-h1'>
+            Arrastre hasta aquí los archivos
+          </h1>
+          <p className='dropzone-main-info-text'>o</p>
+          <div className='dropzone-controls'>
+            <span className='dropzone-controls-btn'>Explorar archivos</span>
+            <p className='dropzone-main-info-text'>o puedes</p>
+            <span className='dropzone-controls-btn dropzone-controls-btn-ctrl'>Ctrl</span>
+            <p className='dropzone-main-info-text'>+</p>
+            <span className='dropzone-controls-btn dropzone-controls-btn-v'>V</span>
           </div>
         </div>
-
-        <p className="dropzone-instructions">
-          Arrastre hasta aquí los archivos, o haga clic para
-          abrir el explorador de archivos
-        </p>
+        <div className='dropzone-format-info'>
+          <p className="dropzone-format-info-text">WEBP</p>
+          <p className="dropzone-format-info-text">JPG</p>
+          <p className="dropzone-format-info-text">PNG</p>
+          <p className="dropzone-format-info-text">SVG</p>
+        </div>
       </div>
 
       {isDragging && (
@@ -93,6 +118,4 @@ const ImageUploadDropzone = ({ onFilesSelected }) => {
       )}
     </div>
   );
-};
-
-export default ImageUploadDropzone;
+}

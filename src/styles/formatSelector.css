@@ -120,7 +120,6 @@
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  z-index: 1100;
   opacity: 0;
   transform: translateX(8px) scale(0.98);
   transition: opacity 0.18s ease, transform 0.18s ease;
@@ -163,7 +162,7 @@
     left: 100%;
     right: auto;
     margin-left: 6px;
-    width: 180px;
+    width: 120px;
     top: 0;
   }
 
@@ -176,7 +175,7 @@
 
 @media (max-width: 768px) {
   .format-select-wrapper {
-    width: clamp(180px, 60vw, 220px);
+    width: clamp(180px, 60vw, 200px);
   }
 
   .format-select-button {
@@ -191,7 +190,7 @@
 
 @media (max-width: 480px) {
   .format-select-wrapper {
-    width: min(90%, 200px);
+    width: min(90%, 155px);
   }
 
   .format-select-button {

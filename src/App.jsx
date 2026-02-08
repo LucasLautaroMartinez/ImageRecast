@@ -7,9 +7,12 @@ export default function App() {
   const matches = useMatches();
   const current = matches[matches.length - 1];
 
+  const title = current?.handle?.title || "";
+  const info = current?.handle?.info || null;
+
   return (
     <>
-      <Header title={current?.handle?.title} />
+      <Header title={title} info={info} />
       <Menu />
 
       <Outlet />

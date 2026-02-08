@@ -104,5 +104,7 @@
 
 
 
-.viewer-btn.delete   { background: #c0392b; }
-.viewer-btn.download { background: #4a90e2; }
+.viewer-btn.delete   { background: var(--accent-reddish-orange); }
+.viewer-btn.delete:hover   { background: var(--accent-orange-red); }
+.viewer-btn.download { background: var(--accent-blue); }
+.viewer-btn.download:hover { background: var(--accent-light-blue); }

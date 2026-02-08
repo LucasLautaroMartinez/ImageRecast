@@ -1,0 +1,85 @@
+.info-button,
+.info-overlay {
+  font-family: var(--font-rubik);
+}
+
+.info-button {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: var(--primary-turquoise);
+  color: var(--primary-yellow);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.info-button:hover {
+  background: var(--primary-turquoise-lighter);
+}
+
+.info-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+}
+
+.info-panel {
+  position: relative;
+  width: min(90%, 520px);
+  background: var(--secondary-gray);
+  color: var(--secondary-light-gray);
+  border-radius: 14px;
+  padding: 24px 28px 28px;
+  transform-origin: center;
+}
+
+.info-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: hsl(from var(--secondary-gray) h s calc(l - 4));
+  color: var(--secondary-light-gray);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.info-close:hover {
+  background: hsl(from var(--secondary-gray) h s calc(l + 7));
+}
+
+.info-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+}
+
+.info-content img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 2rem 0 1rem 0;
+}
+
+.info-content p {
+  width: 100%;
+}
+
+.info-panel h2 {
+  width: 100%;
+  font-size: clamp(1.2rem, 2svw + 1rem, 2rem);
+  color: white;
+  font-weight: 800;
+  white-space: nowrap;
+  line-height: 0;
+  margin-top: 2rem;
+}

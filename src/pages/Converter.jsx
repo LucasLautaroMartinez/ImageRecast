@@ -1,11 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-// import camara from '../assets/Camara.webp'
 import DropBox from '../components/image/DropBox.jsx'
-// import FreeSticker from '../assets/free-text.svg'
-// import SparklesSticker from '../assets/pop.svg'
-// import Sparkles2Sticker from '../assets/pop2.svg'
-// import StarSticker from '../assets/tiny-star.svg'
-import SquigglyArrowSticker from '../assets/squiggly-arrow.svg'
+// import SquigglyArrowSticker from '../assets/squiggly-arrow.svg'
 import FormatSelect from '../components/ui/FormatSelector.jsx'
 import ProgressBar from '../components/ui/ProgressBar.jsx'
 import ImageCard from '../components/image/ImageCard.jsx'
@@ -112,72 +107,69 @@ export default function Converter() {
       <section className={stylesConverter['dropbox']}>
         <DropBox onFilesSelected={handleUpload} />
         <ProgressBar visible={uploading} progress={progress} />
+
+
+      </section>
+      <section className={stylesConverter['format-select-container']}>
+        <FormatSelect
+          value={imageFormat}
+          onChange={setImageFormat}
+          svgPreset={svgPreset}
+          onSvgPresetChange={setSvgPreset}
+          className='format-select-button'
+        />
+        {/* <img src={SquigglyArrowSticker} alt="" className={`${stylesConverter['sticker-arrow']} ${imageFormat === 'image/svg+xml' ? stylesConverter['sticker-arrow-svg'] : ''}`} /> */}
       </section>
 
 
-        <section className={stylesConverter['format-select-container']}>
-          <FormatSelect
-            value={imageFormat}
-            onChange={setImageFormat}
-            svgPreset={svgPreset}
-            onSvgPresetChange={setSvgPreset}
-          />
-          <img src={SquigglyArrowSticker} alt="" className={`${stylesConverter['sticker-arrow']} ${imageFormat === 'image/svg+xml' ? stylesConverter['sticker-arrow-svg'] : ''}`} />
-        </section>
 
 
+      {/* <section className={stylesConverter['main-bottom']}> */}
+      <section className={stylesConverter['processed-image-container']}>
+        <div className={stylesConverter['processed-image-inner-container-blank-border']}>
+          <div className={stylesConverter['processed-image-inner-container']}>
+            {Array.isArray(images) && images.length === 0 && (
+              <div className={stylesConverter['empty-state']}>
+                No hay imágenes cargadas
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={stylesConverter["no-image-icon"]}>
+                  <path 
+                    className={stylesConverter["no-image-icon__frame"]} 
+                    d="M21 3H3C1.9 3 1 3.9 1 5v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM5 17l3.5-4.5 2.5 3.01L14.5 11l4.5 6H5z"
+                  />
+                  <line
+                    className={stylesConverter["no-image-icon__line1"]} 
+                    x1="1" 
+                    y1="1" 
+                    x2="22" 
+                    y2="23" 
+                    strokeWidth="2" 
+                    strokeLinecap="round"
+                  />
+                  <line 
+                    className={stylesConverter["no-image-icon__line2"]} 
+                    x1="3.78" 
+                    y1="1" 
+                    x2="24.78" 
+                    y2="23" 
+                    strokeWidth="2" 
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </div>
+            )}
 
-      {/* <div className={stylesConverter['floating-camera']}>
-        <img src={camara} alt="Camara fotografica ilustrativa" className={stylesConverter['camera-photo']} />
-        <img src={FreeSticker} alt="" className={stylesConverter['sticker-1']} />
-        <img src={Sparkles2Sticker} alt="" className={stylesConverter['sticker-2']} />
-        <img src={SparklesSticker} alt="" className={stylesConverter['sticker-3']} />
-        <img src={StarSticker} alt="" className={stylesConverter['sticker-4']} />
-      </div> */}
-
-      <section className={stylesConverter['main-bottom']}>
-        <div className={stylesConverter['processed-image-container']}>
-          {Array.isArray(images) && images.length === 0 && (
-            <div className={stylesConverter['empty-state']}>
-              No hay imágenes cargadas
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={stylesConverter["no-image-icon"]}>
-                <path 
-                  className={stylesConverter["no-image-icon__frame"]} 
-                  d="M21 3H3C1.9 3 1 3.9 1 5v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM5 17l3.5-4.5 2.5 3.01L14.5 11l4.5 6H5z"
-                />
-                <line
-                  className={stylesConverter["no-image-icon__line1"]} 
-                  x1="1" 
-                  y1="1" 
-                  x2="22" 
-                  y2="23" 
-                  strokeWidth="2" 
-                  strokeLinecap="round"
-                />
-                <line 
-                  className={stylesConverter["no-image-icon__line2"]} 
-                  x1="3.78" 
-                  y1="1" 
-                  x2="24.78" 
-                  y2="23" 
-                  strokeWidth="2" 
-                  strokeLinecap="round"
-                />
-              </svg>
-            </div>
-          )}
-
-          {Array.isArray(images) && images.map(img => (
-            <ImageCard
-              key={img.id}
-              fileName={img.name}
-              fileSize={(img.size / 1024 / 1024).toFixed(2) + ' Mb'}
-              thumbnail={img.previewUrl}
-              onDownload={() => handleDownload(img)}
-              onDelete={() => handleDelete(img.id)}
-              onPreview={() => openViewer(img)}
-            />
-          ))}
+            {Array.isArray(images) && images.map(img => (
+              <ImageCard
+                key={img.id}
+                fileName={img.name}
+                fileSize={(img.size / 1024 / 1024).toFixed(2) + ' Mb'}
+                thumbnail={img.previewUrl}
+                onDownload={() => handleDownload(img)}
+                onDelete={() => handleDelete(img.id)}
+                onPreview={() => openViewer(img)}
+              />
+            ))}
+          </div>
         </div>
         <div className={stylesConverter['image-toolbar']}>
           <button

@@ -7,15 +7,15 @@
   padding: clamp(0.75rem, 1.5vw, 1rem);
   width: 100%;
   max-width: 700px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.2s ease;
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
+  /* transition: box-shadow 0.2s ease; */
   height: clamp(5rem, 10rem);
   margin: 0 5%;
 }
 
-.file-item:hover {
+/* .file-item:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
+} */
 
 .file-thumbnail {
   flex-shrink: 0;
@@ -23,7 +23,7 @@
   height: clamp(60px, 12vw, 100px);
   border-radius: clamp(6px, 1vw, 8px);
   overflow: hidden;
-  background-color: #d4d4d4;
+  background-color: var(--secondary-light-gray);
 }
 
 .file-thumbnail img {
@@ -75,17 +75,17 @@
   justify-content: center;
   padding: clamp(10px, 2vw, 14px);
   transition: all 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  filter: drop-shadow(3px 3px 0px var(--shadow-light));
 }
 
 .file-action-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  filter: drop-shadow(5px 5px 0px var(--shadow-light));
 }
 
 .file-action-button:active {
   transform: translateY(0);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  filter: drop-shadow(3px 3px 0px var(--shadow-light));
 }
 
 .file-action-button svg {
@@ -95,11 +95,11 @@
 }
 
 .download-button {
-  background-color: #4a90e2;
+  background-color: var(--accent-blue);
 }
 
 .download-button:hover {
-  background-color: #5ba0f2;
+  background-color: var(--accent-light-blue);
 }
 
 .download-button svg {
@@ -107,11 +107,11 @@
 }
 
 .delete-button {
-  background-color: #e74c3c;
+  background-color: var(--accent-reddish-orange);
 }
 
 .delete-button:hover {
-  background-color: #f75c4c;
+  background-color: var(--accent-orange-red);
 }
 
 .delete-button svg {
