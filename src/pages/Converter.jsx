@@ -24,6 +24,7 @@ export default function Converter() {
   const [reprocessAll, setReprocessAll] = useState(false);
   const [pendingFormat, setPendingFormat] = useState(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [pendingSvgPreset, setPendingSvgPreset] = useState(null);
 
   useEffect(() => {
     if (isDeletingRef.current) { 
@@ -99,6 +100,18 @@ export default function Converter() {
     });
   }
 
+  async function handleCopy(img) {
+    try {
+      const blob = img.blob;
+      const item = new ClipboardItem({ [blob.type]: blob });
+      await navigator.clipboard.write([item]);
+      toast.success('Imagen copiada al portapapeles');
+    } catch (err) {
+      toast.error('No se pudo copiar la imagen');
+      console.error(err);
+    }
+  }
+
   function handleDownload(img) {
     const url = URL.createObjectURL(img.blob);
     const a = document.createElement('a');
@@ -165,9 +178,18 @@ export default function Converter() {
             setConfirmOpen(true);
           }}
           svgPreset={svgPreset}
-          onSvgPresetChange={(v) => {
-            setSvgPreset(v);
-            setReprocessAll(true);
+          onSvgPresetChange={(nextPreset) => {
+            if (nextPreset === svgPreset) return;
+
+            if (images.length <= 4) {
+              setSvgPreset(nextPreset);
+              setReprocessAll(true);
+              return;
+            }
+
+            setPendingFormat('image/svg+xml');
+            setPendingSvgPreset(nextPreset);
+            setConfirmOpen(true);
           }}
         />
       </section>
@@ -215,6 +237,7 @@ export default function Converter() {
                 onDownload={() => handleDownload(img)}
                 onDelete={() => handleDelete(img.id)}
                 onPreview={() => openViewer(img)}
+                onCopy={() => handleCopy(img)}
               />
             ))}
           </div>
@@ -244,18 +267,23 @@ export default function Converter() {
       <ConfirmPanel
         open={confirmOpen}
         title="¿Cambiar formato?"
-        message="Hay varias imágenes cargadas. Esto volverá a convertirlas todas."
+        message="Hay varias imágenes cargadas. Esto volverá a convertirlas a todas."
         onConfirm={() => {
-          setImageFormat(pendingFormat);
+          if (pendingFormat) setImageFormat(pendingFormat);
+          if (pendingSvgPreset) setSvgPreset(pendingSvgPreset);
+
           setReprocessAll(true);
           setPendingFormat(null);
+          setPendingSvgPreset(null);
           setConfirmOpen(false);
         }}
         onCancel={() => {
           setPendingFormat(null);
+          setPendingSvgPreset(null);
           setConfirmOpen(false);
         }}
       />
+
     </main>
   );
 }

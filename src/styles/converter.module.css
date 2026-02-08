@@ -88,9 +88,8 @@
   align-items: center;
   justify-content: center;
   min-height: 200px;
-  color: #c0392b;
+  color: hsl(from var(--accent-reddish-orange-lighter) h calc(s - 20) calc(l - 13));
   font-weight: bold;
-  opacity: 0.9;
   font-size: clamp(1rem, 2vw, 1.25rem);
   text-align: center;
   padding: 2rem;
@@ -104,19 +103,18 @@
 .empty-state .no-image-icon {
   height: 90%;
   width: 90%;
-  opacity: 0.6;
 }
 
 .empty-state .no-image-icon__frame {
-  fill: #c0392b;
+  fill: hsl(from var(--accent-reddish-orange-lighter) h calc(s - 25) calc(l - 18));
 }
 
 .empty-state svg .no-image-icon__line1 {
-  stroke: #c0392b;
+  stroke: hsl(from var(--accent-reddish-orange-lighter) h calc(s - 25) calc(l - 18));
 }
 
 .empty-state svg .no-image-icon__line2 {
-  stroke: #312f2c;
+  stroke: var(--secondary-gray);
 }
 
 .image-toolbar {
@@ -146,9 +144,6 @@
   cursor: not-allowed;
 }
 
-.toast-delete-images {
-  color: #fbccc6;
-}
 
 /*==========================================----- MEDIA QUERIES -----==========================================*/
 

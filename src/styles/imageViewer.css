@@ -104,7 +104,7 @@
 
 
 
-.viewer-btn.delete   { background: var(--accent-reddish-orange); }
+.viewer-btn.delete   { background: var(--accent-reddish-orange-lighter); }
 .viewer-btn.delete:hover   { background: var(--accent-orange-red); }
 .viewer-btn.download { background: var(--accent-blue); }
 .viewer-btn.download:hover { background: var(--accent-light-blue); }

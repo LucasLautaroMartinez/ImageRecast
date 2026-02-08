@@ -13,6 +13,7 @@ export default defineConfig({
   plugins: [react()],
   
   server: {
+    https: true,
     host: true,
     port: 5173
   },
