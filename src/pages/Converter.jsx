@@ -8,6 +8,7 @@ import { Toaster } from 'anni'
 import { toast } from 'anni'
 import stylesConverter from '../styles/converter.module.css'
 import ImageViewer from '../components/image/ImageViewer.jsx'
+import ConfirmPanel from '../components/ui/ConfirmActionPanel.jsx'
 
 export default function Converter() {
   const [imageFormat, setImageFormat] = useState('image/png');
@@ -21,12 +22,16 @@ export default function Converter() {
   const [activeImage, setActiveImage] = useState(null);
   const [pendingFiles, setPendingFiles] = useState([]);
   const [reprocessAll, setReprocessAll] = useState(false);
+  const [pendingFormat, setPendingFormat] = useState(null);
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   useEffect(() => {
     if (isDeletingRef.current) { 
       isDeletingRef.current = false; 
       return; 
     }
+
+    if (pendingFormat) return;
 
     const filesToProcess = reprocessAll ? originalFiles : pendingFiles;
     if (filesToProcess.length === 0) return;
@@ -147,16 +152,23 @@ export default function Converter() {
         <p>Convertir imágenes a...</p>
         <FormatSelect
           value={imageFormat}
-          onChange={(v) => {
-            setImageFormat(v);
-            setReprocessAll(true);
+          onChange={(nextFormat) => {
+            if (nextFormat === imageFormat) return;
+
+            if (images.length <= 4) {
+              setImageFormat(nextFormat);
+              setReprocessAll(true);
+              return;
+            }
+
+            setPendingFormat(nextFormat);
+            setConfirmOpen(true);
           }}
           svgPreset={svgPreset}
           onSvgPresetChange={(v) => {
             setSvgPreset(v);
             setReprocessAll(true);
           }}
-          className='format-select-button'
         />
       </section>
 
@@ -229,6 +241,21 @@ export default function Converter() {
           onDownload={handleDownload}
         />
       )}
+      <ConfirmPanel
+        open={confirmOpen}
+        title="¿Cambiar formato?"
+        message="Hay varias imágenes cargadas. Esto volverá a convertirlas todas."
+        onConfirm={() => {
+          setImageFormat(pendingFormat);
+          setReprocessAll(true);
+          setPendingFormat(null);
+          setConfirmOpen(false);
+        }}
+        onCancel={() => {
+          setPendingFormat(null);
+          setConfirmOpen(false);
+        }}
+      />
     </main>
   );
 }
